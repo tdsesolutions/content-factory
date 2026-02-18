@@ -47,6 +47,20 @@ npm start
 
 Visit: http://localhost:3000
 
+## Deploy to Vercel
+
+### Option 1: Git Push (Recommended)
+1. Push to GitHub (already done)
+2. Go to https://vercel.com/new
+3. Import `tdsesolutions/content-factory`
+4. Deploy
+
+### Option 2: Vercel CLI
+```bash
+npm i -g vercel
+vercel --prod
+```
+
 ## Deploy to Nestify
 
 ```bash

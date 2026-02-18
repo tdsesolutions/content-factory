@@ -498,6 +498,18 @@ cron.schedule('0 6 * * *', async () => {
 console.log('[Cron] Scheduled daily video generation for 6:00 AM UTC');
 
 // ============================================
+// STATIC FILES (Dashboard UI)
+// ============================================
+
+// Serve static files from client directory
+app.use(express.static(path.join(__dirname, '../client')));
+
+// Serve index.html for root route
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/index.html'));
+});
+
+// ============================================
 // SERVER STARTUP
 // ============================================
 
@@ -524,7 +536,13 @@ async function startServer() {
   });
 }
 
-startServer().catch(err => {
-  console.error('Failed to start server:', err);
-  process.exit(1);
-});
+// Export for Vercel serverless
+module.exports = app;
+
+// Start server if running locally (not on Vercel)
+if (require.main === module) {
+  startServer().catch(err => {
+    console.error('Failed to start server:', err);
+    process.exit(1);
+  });
+}
