@@ -1,0 +1,40 @@
+{
+  "name": "tds-content-factory",
+  "version": "1.0.0",
+  "runtime": "node",
+  "runtimeVersion": "18",
+  "startCommand": "npm start",
+  "port": "auto",
+  "env": {
+    "NODE_ENV": "production",
+    "PORT": "auto"
+  },
+  "build": {
+    "command": "npm install",
+    "output": "."
+  },
+  "routes": [
+    {
+      "path": "/api/*",
+      "target": "server/server.js",
+      "type": "function"
+    },
+    {
+      "path": "/*",
+      "target": "client/",
+      "type": "static"
+    }
+  ],
+  "persistentStorage": {
+    "enabled": true,
+    "mountPath": "/data"
+  },
+  "healthCheck": {
+    "path": "/health",
+    "interval": 30
+  },
+  "scaling": {
+    "minInstances": 1,
+    "maxInstances": 3
+  }
+}

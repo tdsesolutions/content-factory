@@ -1,0 +1,524 @@
+{
+  "company": "TDS E Solutions",
+  "branding": {
+    "tagline": "Transforming Ideas into Digital Reality",
+    "primary_color": "#2563eb",
+    "secondary_color": "#1e40af"
+  },
+  "variables": {
+    "company": "{{company}}",
+    "benefit": "{{benefit}}",
+    "stat": "{{stat}}",
+    "cta": "{{cta}}"
+  },
+  "categories": {
+    "meet_kiarosx": {
+      "id": 1,
+      "name": "Meet KiarosX",
+      "description": "Introduction and brand awareness content",
+      "hashtags": ["#KiarosX", "#TDSolutions", "#DigitalTransformation", "#Innovation", "#TechCompany", "#BusinessGrowth"],
+      "templates": [
+        {
+          "id": "kx1",
+          "hook": "Ever wondered who's behind {{company}}? 👋",
+          "body": "We're {{company}}, and this is KiarosX — our flagship platform that turns complex problems into elegant solutions.\n\nWe believe every business deserves technology that actually works for them, not against them.\n\nCurious? Let's talk.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#MeetTheTeam", "#WhoWeAre"]
+        },
+        {
+          "id": "kx2",
+          "hook": "What makes {{company}} different? 🤔",
+          "body": "We don't just build software — we build relationships.\n\nKiarosX isn't just a product; it's the result of years of listening to businesses like yours and creating solutions that drive {{benefit}}.\n\nYour success story starts here.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#WhyUs", "#OurStory"]
+        },
+        {
+          "id": "kx3",
+          "hook": "Behind every great product is a passionate team 💙",
+          "body": "Meet the minds behind KiarosX at {{company}}.\n\nWe're developers, designers, and dreamers united by one mission: making technology accessible and powerful for businesses of all sizes.\n\nReady to meet us?",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#TeamWork", "#TechPassion"]
+        },
+        {
+          "id": "kx4",
+          "hook": "KiarosX: The story behind the name 🔮",
+          "body": "Kairos — the Greek word for the perfect moment.\n\nThat's what {{company}} delivers: the right solution at the right time. KiarosX represents that moment when technology and opportunity align for your business.\n\nYour kairos moment is waiting.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#BrandStory", "#KairosMoment"]
+        },
+        {
+          "id": "kx5",
+          "hook": "From startup to solution provider — our journey 🚀",
+          "body": "{{company}} started with a simple belief: technology should empower, not overwhelm.\n\nToday, KiarosX powers businesses across industries, delivering {{stat}} in efficiency gains.\n\nWe're just getting started.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#Journey", "#GrowthStory"]
+        },
+        {
+          "id": "kx6",
+          "hook": "Not your average tech company ⚡",
+          "body": "At {{company}}, we speak human AND tech.\n\nKiarosX was built for business owners who want results without the jargon. Simple interfaces. Powerful outcomes. Real {{benefit}}.\n\nTech that works the way you think.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#NoJargon", "#HumanFirst"]
+        }
+      ]
+    },
+    "ai_automation_tips": {
+      "id": 2,
+      "name": "AI Automation Tips",
+      "description": "AI automation insights and best practices",
+      "hashtags": ["#AI", "#Automation", "#BusinessTips", "#Productivity", "#TechTips", "#DigitalTransformation"],
+      "templates": [
+        {
+          "id": "ai1",
+          "hook": "Stop wasting 10 hours a week on manual tasks 🤖",
+          "body": "AI automation can handle:\n→ Email responses\n→ Data entry\n→ Scheduling\n→ Reporting\n\nWork smarter, not harder.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#WorkSmarter", "#SaveTime"]
+        },
+        {
+          "id": "ai2",
+          "hook": "Your competitors are already using AI. Are you? 📊",
+          "body": "{{stat}} of businesses using AI report increased efficiency.\n\nDon't get left behind. Start with one process:\n→ Customer support\n→ Lead qualification\n→ Content creation\n\nOne step at a time.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#StayCompetitive", "#FutureReady"]
+        },
+        {
+          "id": "ai3",
+          "hook": "AI isn't replacing humans — it's empowering them 💡",
+          "body": "The best automation doesn't eliminate jobs; it eliminates busywork.\n\nYour team should focus on strategy, creativity, and relationships — not repetitive tasks.\n\nLet AI handle the rest.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#HumanAI", "#TeamEmpowerment"]
+        },
+        {
+          "id": "ai4",
+          "hook": "3 AI tools every business needs in 2024 🛠️",
+          "body": "1. Chatbots for 24/7 customer service\n2. Automated reporting for instant insights\n3. Smart scheduling that learns your preferences\n\nImplement just one this week and watch {{benefit}} skyrocket.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#AITools", "#2024Trends"]
+        },
+        {
+          "id": "ai5",
+          "hook": "The 80/20 rule of AI automation 📈",
+          "body": "80% of your time is spent on 20% of repetitive tasks.\n\nAutomate that 20% and reclaim your day.\n\nStart with your biggest time-waster. What's eating your hours?",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#8020Rule", "#Efficiency"]
+        },
+        {
+          "id": "ai6",
+          "hook": "Why your automation isn't working (and how to fix it) 🔧",
+          "body": "Common mistake: automating broken processes.\n\nFix the workflow first, then automate.\n\nAt {{company}}, we audit before we automate — ensuring you get {{benefit}} from day one.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#ProTips", "#AutomationFails"]
+        }
+      ]
+    },
+    "custom_software_solutions": {
+      "id": 3,
+      "name": "Custom Software Solutions",
+      "description": "Custom software development and solutions",
+      "hashtags": ["#CustomSoftware", "#SoftwareDevelopment", "#BusinessSolutions", "#TechSolutions", "#BespokeTech"],
+      "templates": [
+        {
+          "id": "cs1",
+          "hook": "Off-the-shelf software letting you down? 📦",
+          "body": "Generic solutions create generic results.\n\nYour business is unique — your software should be too. Custom solutions from {{company}} deliver exactly what you need, nothing you don't.\n\n{{benefit}} guaranteed.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#CustomBuilt", "#NoCompromise"]
+        },
+        {
+          "id": "cs2",
+          "hook": "Why we build custom (and why it matters) 🏗️",
+          "body": "We don't believe in forcing your business into a template.\n\nCustom software means:\n→ Exact features you need\n→ Scales with your growth\n→ Integrates with your tools\n→ No bloat, no compromise",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#BuiltForYou", "#Scalable"]
+        },
+        {
+          "id": "cs3",
+          "hook": "Your business + Custom software = {{benefit}} 💎",
+          "body": "We've seen clients achieve {{stat}} ROI with custom solutions.\n\nWhy? Because the software fits like a glove — no workarounds, no limitations, just pure efficiency.\n\nReady for software that works YOUR way?",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#ROI", "#EfficiencyBoost"]
+        },
+        {
+          "id": "cs4",
+          "hook": "The hidden cost of 'good enough' software 🚨",
+          "body": "Workarounds. Manual processes. Frustrated teams.\n\n'Good enough' costs more than you think.\n\nCustom software from {{company}} eliminates inefficiencies and delivers real {{benefit}}.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#TrueCost", "#InvestWisely"]
+        },
+        {
+          "id": "cs5",
+          "hook": "From spreadsheet chaos to streamlined system 📊➡️💻",
+          "body": "If you're juggling 10 spreadsheets and 5 apps...\n\nIt's time for a custom solution that brings everything together.\n\nOne platform. All your data. Infinite possibilities.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#Streamlined", "#OnePlatform"]
+        },
+        {
+          "id": "cs6",
+          "hook": "Build once, benefit forever 🏆",
+          "body": "Custom software is an investment that pays dividends.\n\nNo monthly SaaS fees for features you don't use.\nNo limitations.\nJust a solution built for YOUR success.\n\n{{company}} makes it happen.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#LongTerm", "#SmartInvestment"]
+        }
+      ]
+    },
+    "web_development_fast": {
+      "id": 4,
+      "name": "Web Development Fast",
+      "description": "Rapid web development and deployment",
+      "hashtags": ["#WebDevelopment", "#FastDelivery", "#WebDesign", "#DigitalPresence", "#WebsiteLaunch"],
+      "templates": [
+        {
+          "id": "wd1",
+          "hook": "Your website in weeks, not months ⚡",
+          "body": "Speed doesn't mean cutting corners.\n\nAt {{company}}, we've perfected rapid web development that delivers {{benefit}} fast.\n\n→ Modern designs\n→ Mobile-first\n→ SEO optimized\n→ Ready to convert",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#Speed", "#Quality"]
+        },
+        {
+          "id": "wd2",
+          "hook": "Slow website = lost customers 🐌",
+          "body": "{{stat}} of users abandon sites that take over 3 seconds to load.\n\nWe build lightning-fast websites that keep visitors engaged and drive {{benefit}}.\n\nSpeed is not a luxury — it's a necessity.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#PageSpeed", "#UserExperience"]
+        },
+        {
+          "id": "wd3",
+          "hook": "Website refresh without the headache 🎨",
+          "body": "Redesigning doesn't have to be painful.\n\nOur streamlined process:\n1. Strategy & planning\n2. Rapid prototyping\n3. Development & testing\n4. Launch & optimize\n\nLive in record time.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#WebDesign", "#EasyProcess"]
+        },
+        {
+          "id": "wd4",
+          "hook": "Mobile-first is no longer optional 📱",
+          "body": "{{stat}} of web traffic comes from mobile devices.\n\nIf your site isn't mobile-optimized, you're losing customers.\n\n{{company}} builds responsive, fast, beautiful sites that work everywhere.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#MobileFirst", "#Responsive"]
+        },
+        {
+          "id": "wd5",
+          "hook": "From idea to live website: Our process revealed 🔍",
+          "body": "Week 1: Discovery & design\nWeek 2: Development sprint\nWeek 3: Testing & refinement\nWeek 4: Launch & celebrate 🚀\n\nFast doesn't mean rushed. It means efficient.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#Process", "#Transparent"]
+        },
+        {
+          "id": "wd6",
+          "hook": "Your website should be your best salesperson 💼",
+          "body": "24/7. Never calls in sick. Always on brand.\n\nWe build websites that convert visitors into customers, delivering {{benefit}} while you sleep.\n\nReady for a site that works as hard as you do?",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#Conversion", "#SalesMachine"]
+        }
+      ]
+    },
+    "mobile_app_development": {
+      "id": 5,
+      "name": "Mobile App Development",
+      "description": "iOS and Android app development",
+      "hashtags": ["#MobileApp", "#AppDevelopment", "#iOS", "#Android", "#MobileFirst", "#AppLaunch"],
+      "templates": [
+        {
+          "id": "ma1",
+          "hook": "Your business, in your customers' pockets 📲",
+          "body": "A mobile app puts you one tap away from engagement.\n\n{{company}} builds apps that users love and businesses benefit from.\n\n→ Intuitive UX\n→ Fast performance\n→ Push notifications\n→ Offline capabilities",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#CustomerEngagement", "#AlwaysThere"]
+        },
+        {
+          "id": "ma2",
+          "hook": "iOS or Android? Why not both? 📱",
+          "body": "Cross-platform development means one codebase, two apps.\n\n{{benefit}}. Faster launch. Lower cost.\n\n{{company}} delivers native-quality apps for every platform.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#CrossPlatform", "#CostEffective"]
+        },
+        {
+          "id": "ma3",
+          "hook": "The average person checks their phone 96 times a day 📊",
+          "body": "That's 96 opportunities to connect with your customers.\n\nA well-designed app keeps your brand top-of-mind and drives {{benefit}}.\n\nMake those moments count.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#UserEngagement", "#BrandPresence"]
+        },
+        {
+          "id": "ma4",
+          "hook": "App idea? Let's build it 🚀",
+          "body": "From concept to App Store, {{company}} guides you through:\n\n→ Market research\n→ UX/UI design\n→ Development\n→ Testing & QA\n→ Launch strategy\n→ Post-launch support",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#AppIdea", "#FullService"]
+        },
+        {
+          "id": "ma5",
+          "hook": "Push notifications: The engagement secret weapon 🔔",
+          "body": "{{stat}} of users enable push notifications.\n\nThat's direct access to your audience — if used wisely.\n\nWe build apps with smart notification strategies that drive {{benefit}} without being annoying.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#PushNotifications", "#SmartEngagement"]
+        },
+        {
+          "id": "ma6",
+          "hook": "Your app isn't just code — it's an experience ✨",
+          "body": "Great apps feel effortless.\n\nAt {{company}}, we obsess over every interaction, every animation, every moment of delight.\n\nBecause your users deserve the best.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#UXMatters", "#Delightful"]
+        }
+      ]
+    },
+    "business_process_optimization": {
+      "id": 6,
+      "name": "Business Process Optimization",
+      "description": "Streamlining and optimizing business workflows",
+      "hashtags": ["#BusinessOptimization", "#ProcessImprovement", "#Efficiency", "#Workflow", "#Productivity"],
+      "templates": [
+        {
+          "id": "bp1",
+          "hook": "Your processes are costing you money 💸",
+          "body": "Inefficient workflows drain {{stat}} in lost productivity annually.\n\n{{company}} identifies bottlenecks and optimizes your operations for maximum {{benefit}}.\n\nStop the leak. Start the gain.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#CostSavings", "#StopWaste"]
+        },
+        {
+          "id": "bp2",
+          "hook": "Work smarter, not harder 💡",
+          "body": "Optimization isn't about doing more — it's about doing better.\n\nStreamline workflows, eliminate redundancies, and free your team to focus on what matters.\n\n{{benefit}} is the result.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#WorkSmart", "#BetterNotMore"]
+        },
+        {
+          "id": "bp3",
+          "hook": "The 5-minute process audit 📝",
+          "body": "Ask yourself:\n→ Where do tasks get stuck?\n→ What requires duplicate data entry?\n→ Which steps add no value?\n\nFound a pain point? That's where {{company}} comes in.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#SelfAudit", "#FindBottlenecks"]
+        },
+        {
+          "id": "bp4",
+          "hook": "From chaos to clockwork ⚙️",
+          "body": "Disorganized processes create:\n→ Missed deadlines\n→ Frustrated teams\n→ Unhappy customers\n\nLet {{company}} transform your operations into a well-oiled machine.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#Organized", "#SmoothOperations"]
+        },
+        {
+          "id": "bp5",
+          "hook": "Scale without the growing pains 📈",
+          "body": "Growth is great — until your processes break.\n\nOptimized workflows scale with you, ensuring {{benefit}} at every stage.\n\nPrepare for success before it happens.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#Scalable", "#GrowthReady"]
+        },
+        {
+          "id": "bp6",
+          "hook": "Data-driven decisions start with data-driven processes 📊",
+          "body": "If you can't measure it, you can't improve it.\n\n{{company}} builds optimization frameworks that give you visibility into every metric that matters.\n\nKnowledge is power. Power is {{benefit}}.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#DataDriven", "#Measurable"]
+        }
+      ]
+    },
+    "tech_trends_insights": {
+      "id": 7,
+      "name": "Tech Trends/Insights",
+      "description": "Industry trends, insights, and future predictions",
+      "hashtags": ["#TechTrends", "#IndustryInsights", "#FutureTech", "#Innovation", "#TechNews"],
+      "templates": [
+        {
+          "id": "tt1",
+          "hook": "The future of work is here — are you ready? 🚀",
+          "body": "Remote teams, AI assistants, cloud everything.\n\nThe workplace is transforming. {{stat}} of companies are already adopting new tech.\n\n{{company}} keeps you ahead of the curve.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#FutureOfWork", "#StayAhead"]
+        },
+        {
+          "id": "tt2",
+          "hook": "Trend alert: What's hot in tech right now 🔥",
+          "body": "→ AI-powered everything\n→ Low-code/no-code development\n→ Edge computing\n→ Hyper-automation\n\nWhich trend should you watch? Let's talk strategy.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#TrendAlert", "#TechWatch"]
+        },
+        {
+          "id": "tt3",
+          "hook": "Don't chase every trend. Chase the right ones 🎯",
+          "body": "Not every shiny new technology fits your business.\n\n{{company}} helps you separate game-changers from distractions, ensuring {{benefit}} from strategic adoption.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#StrategicTech", "#SmartChoices"]
+        },
+        {
+          "id": "tt4",
+          "hook": "What {{stat}} of tech leaders know (that you should too) 📚",
+          "body": "The biggest insight? Technology is only as good as its implementation.\n\nSuccess comes from aligning tech with business goals — not buying the latest gadget.\n\n{{company}} gets it.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#TechLeadership", "#StrategyFirst"]
+        },
+        {
+          "id": "tt5",
+          "hook": "The 2024 tech stack every business needs 🛠️",
+          "body": "→ Cloud infrastructure\n→ Automation tools\n→ Analytics platform\n→ Security suite\n→ Collaboration software\n\nMissing any? {{company}} can help you build it.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#TechStack", "#2024Ready"]
+        },
+        {
+          "id": "tt6",
+          "hook": "From buzzword to business value 💼",
+          "body": "Blockchain. AI. Metaverse. IoT.\n\nThey all sound exciting, but how do they actually help YOUR business?\n\n{{company}} translates tech trends into {{benefit}}.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#PracticalTech", "#RealValue"]
+        }
+      ]
+    },
+    "client_success_stories": {
+      "id": 8,
+      "name": "Client Success Stories",
+      "description": "Case studies and client testimonials",
+      "hashtags": ["#ClientSuccess", "#CaseStudy", "#Testimonial", "#Results", "#HappyClients"],
+      "templates": [
+        {
+          "id": "csu1",
+          "hook": "From struggling to thriving: One client's story ⭐",
+          "body": "They came to us overwhelmed by manual processes and outdated systems.\n\nWithin 3 months:\n→ {{stat}} efficiency gain\n→ {{benefit}} achieved\n→ Team morale at all-time high\n\nYour success story could be next.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#Transformation", "#BeforeAfter"]
+        },
+        {
+          "id": "csu2",
+          "hook": "Real results from real clients 📈",
+          "body": "'{{company}} transformed how we operate. We went from spending hours on admin to focusing on growth.'\n\n— Happy Client\n\n{{stat}} improvement. Zero regrets.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#Testimonial", "#Proof"]
+        },
+        {
+          "id": "csu3",
+          "hook": "How we helped [Client] achieve {{benefit}} 🏆",
+          "body": "Challenge: Inefficient workflows costing time and money\nSolution: Custom automation and process optimization\nResult: {{stat}} ROI in 6 months\n\nResults speak louder than promises.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#ResultsDriven", "#ROIBoost"]
+        },
+        {
+          "id": "csu4",
+          "hook": "They said it couldn't be done... we did it anyway 💪",
+          "body": "Complex problem. Tight deadline. High stakes.\n\n{{company}} delivered, and our client achieved {{benefit}} beyond their expectations.\n\nNo challenge too big. No detail too small.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#ChallengeAccepted", "#Delivered"]
+        },
+        {
+          "id": "csu5",
+          "hook": "Why our clients stick with us 🤝",
+          "body": "{{stat}} client retention rate.\n\nBecause we don't just deliver projects — we deliver {{benefit}}.\n\nWhen you win, we win. Simple as that.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#LongTerm", "#Partnership"]
+        },
+        {
+          "id": "csu6",
+          "hook": "Behind every great result is a great partnership 💙",
+          "body": "We don't have 'customers' — we have partners.\n\nTogether, we identify goals, overcome challenges, and celebrate wins.\n\nLike the time we helped a client achieve {{stat}} growth in just one quarter.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#Partnership", "#TogetherWeWin"]
+        }
+      ]
+    },
+    "behind_the_scenes": {
+      "id": 9,
+      "name": "Behind the Scenes",
+      "description": "Team culture, work environment, and day-to-day operations",
+      "hashtags": ["#BehindTheScenes", "#TeamCulture", "#WorkLife", "#OfficeVibes", "#TeamWork"],
+      "templates": [
+        {
+          "id": "bts1",
+          "hook": "What a Tuesday looks like at {{company}} 📅",
+          "body": "Morning standup. Coffee. Deep work. Collaboration. Breakthrough moments.\n\nWe believe great software comes from happy teams.\n\nHere's a peek behind the curtain 👀",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#DayInTheLife", "#Team"]
+        },
+        {
+          "id": "bts2",
+          "hook": "The faces behind your solutions 👥",
+          "body": "Meet the team that makes it happen.\n\nDevelopers, designers, strategists — united by a passion for solving problems and delivering {{benefit}}.\n\nThis is who you're working with.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#MeetTheTeam", "#ThePeople"]
+        },
+        {
+          "id": "bts3",
+          "hook": "How we build: Our development process revealed 🔧",
+          "body": "Agile sprints. Daily standups. Continuous integration.\n\nTransparency isn't just for clients — it's how we work internally.\n\nThe result? Better code, faster delivery, happier teams.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#DevLife", "#Agile"]
+        },
+        {
+          "id": "bts4",
+          "hook": "Friday afternoons at {{company}} 🎉",
+          "body": "Demo days. Team lunches. Celebrating wins.\n\nWe work hard, but we also celebrate hard.\n\nBecause building great things should be fun.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#FridayFeeling", "#Celebrate"]
+        },
+        {
+          "id": "bts5",
+          "hook": "Our (not-so-secret) productivity hacks 🚀",
+          "body": "→ Deep work blocks\n→ Async communication\n→ Automation (we eat our own dog food!)\n→ Regular breaks\n\nThe same principles we use to build your solutions.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#Productivity", "#WorkSmart"]
+        },
+        {
+          "id": "bts6",
+          "hook": "Why we love what we do ❤️",
+          "body": "There's nothing quite like seeing a client's face when we deliver {{benefit}}.\n\nThat's why we show up every day.\n\nYour success is our fuel.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#Passion", "#Purpose"]
+        }
+      ]
+    },
+    "call_to_action": {
+      "id": 10,
+      "name": "Call to Action",
+      "description": "Direct calls to action and engagement prompts",
+      "hashtags": ["#GetStarted", "#ContactUs", "#LetsTalk", "#BookNow", "#TransformYourBusiness"],
+      "templates": [
+        {
+          "id": "cta1",
+          "hook": "Ready for {{benefit}}? Let's talk 🚀",
+          "body": "Your transformation starts with a conversation.\n\n→ Free consultation\n→ No commitment\n→ Tailored recommendations\n\nWhat do you have to lose?",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#FreeConsultation", "#NoRisk"]
+        },
+        {
+          "id": "cta2",
+          "hook": "Don't let another quarter go by 📅",
+          "body": "{{stat}} of businesses that delayed digital transformation regret waiting.\n\nThe best time to start was yesterday. The second best time is now.\n\n{{cta}}",
+          "hashtags_extra": ["#ActNow", "#NoRegrets"]
+        },
+        {
+          "id": "cta3",
+          "hook": "Still thinking about it? 🤔",
+          "body": "Here's what happens when you take action:\n→ {{benefit}} within 30 days\n→ Streamlined operations\n→ Happier team\n→ Peace of mind\n\nReady to start?",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#TakeAction", "#ResultsFast"]
+        },
+        {
+          "id": "cta4",
+          "hook": "Your competitors aren't waiting 🏃",
+          "body": "While you're thinking about it, they're doing it.\n\nDon't get left behind. {{company}} can get you to {{benefit}} faster than you think.\n\n{{cta}}",
+          "hashtags_extra": ["#StayAhead", "#Compete"]
+        },
+        {
+          "id": "cta5",
+          "hook": "One click away from transformation 🖱️",
+          "body": "It all starts here. One message. One call. One decision to prioritize your business.\n\n{{company}} is ready when you are.\n\n{{cta}}",
+          "hashtags_extra": ["#OneClick", "#StartNow"]
+        },
+        {
+          "id": "cta6",
+          "hook": "What's holding you back? 🤷",
+          "body": "Cost? Time? Uncertainty?\n\nLet's address your concerns in a no-pressure chat. We've helped {{stat}} businesses overcome the same hurdles.\n\nYou might be closer than you think.",
+          "cta": "{{cta}}",
+          "hashtags_extra": ["#NoPressure", "#LetsChat"]
+        }
+      ]
+    }
+  },
+  "rotation_settings": {
+    "cooldown_days": 7,
+    "rotation_strategy": "least_recently_used",
+    "track_by": "template_id"
+  },
+  "default_values": {
+    "company": "TDS E Solutions",
+    "benefit": "measurable results",
+    "stat": "40%",
+    "cta": "DM us to get started"
+  }
+}

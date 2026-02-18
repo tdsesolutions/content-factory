@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TDS Content Factory | Control Core</title>
+    <style>
+        :root {
+            --indigo-deep: #0B1F3B;
+            --indigo-mid: #0F2A4D;
+            --indigo-light: #1A3A66;
+            --cyan-glow: #00E5FF;
+            --cyan-dim: #00B8CC;
+            --glass-bg: rgba(15, 42, 77, 0.7);
+            --glass-border: rgba(0, 229, 255, 0.2);
+            --glass-highlight: rgba(0, 229, 255, 0.1);
+            --text-primary: #E0F7FF;
+            --text-secondary: #8BB8CC;
+            --danger: #FF3860;
+            --success: #00E5A0;
+            --warning: #FFB800;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, var(--indigo-deep) 0%, #051020 50%, var(--indigo-deep) 100%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -1;
+            animation: gridPulse 8s ease-in-out infinite;
+        }
+        @keyframes gridPulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 0.8; } }
+        .header {
+            background: linear-gradient(180deg, var(--glass-bg) 0%, rgba(15, 42, 77, 0.4) 100%);
+            border-bottom: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            padding: 1.5rem 2rem;
+            position: sticky; top: 0; z-index: 100;
+            box-shadow: 0 4px 30px rgba(0, 229, 255, 0.1);
+        }
+        .header-content {
+            max-width: 1400px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 1rem;
+        }
+        .logo-section { display: flex; align-items: center; gap: 1rem; }
+        .logo-sphere {
+            width: 48px; height: 48px; border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(0, 229, 255, 0.4), rgba(11, 31, 59, 0.9));
+            border: 2px solid var(--cyan-glow);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.5), inset 0 0 20px rgba(0, 229, 255, 0.2);
+            position: relative;
+            animation: sphereFloat 4s ease-in-out infinite, sphereGlow 3s ease-in-out infinite;
+        }
+        .logo-sphere::after {
+            content: ''; position: absolute; top: 15%; left: 20%;
+            width: 30%; height: 20%; background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%; filter: blur(2px);
+        }
+        @keyframes sphereFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        @keyframes sphereGlow { 0%, 100% { box-shadow: 0 0 20px rgba(0, 229, 255, 0.5), inset 0 0 20px rgba(0, 229, 255, 0.2); } 50% { box-shadow: 0 0 35px rgba(0, 229, 255, 0.8), inset 0 0 30px rgba(0, 229, 255, 0.3); } }
+        .brand-text h1 {
+            font-size: 1.5rem; font-weight: 700;
+            background: linear-gradient(90deg, var(--text-primary), var(--cyan-glow));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            letter-spacing: 1px;
+        }
+        .brand-text p { font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 2px; }
+        .status-indicator {
+            display: flex; align-items: center; gap: 0.5rem;
+            padding: 0.5rem 1rem; background: rgba(0, 229, 255, 0.1);
+            border: 1px solid var(--glass-border); border-radius: 20px; font-size: 0.8rem;
+        }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--success); box-shadow: 0 0 10px var(--success); animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.7; transform: scale(1.2); } }
+        .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+        .stats-bar {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px;
+            padding: 1.5rem; backdrop-filter: blur(10px); position: relative; overflow: hidden; transition: all 0.3s ease;
+        }
+        .stat-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--cyan-glow), transparent);
+            animation: scanline 3s linear infinite;
+        }
+        @keyframes scanline { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+        .stat-card:hover { transform: translateY(-4px); box-shadow: 0 10px 40px rgba(0, 229, 255, 0.2); border-color: var(--cyan-glow); }
+        .stat-label { font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.5rem; }
+        .stat-value { font-size: 2.5rem; font-weight: 700; color: var(--cyan-glow); text-shadow: 0 0 20px rgba(0, 229, 255, 0.5); }
+        .stat-icon { position: absolute; top: 1rem; right: 1rem; font-size: 1.5rem; opacity: 0.3; }
+        .action-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+        .section-title { font-size: 1.25rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; }
+        .section-title::before { content: ''; width: 4px; height: 24px; background: linear-gradient(180deg, var(--cyan-glow), transparent); border-radius: 2px; }
+        .btn { padding: 0.875rem 1.5rem; border-radius: 12px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; border: none; display: inline-flex; align-items: center; gap: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .btn-primary { background: linear-gradient(135deg, var(--cyan-glow), var(--cyan-dim)); color: var(--indigo-deep); box-shadow: 0 4px 20px rgba(0, 229, 255, 0.4); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0, 229, 255, 0.6); }
+        .btn-secondary { background: var(--glass-bg); color: var(--cyan-glow); border: 1px solid var(--glass-border); }
+        .btn-secondary:hover { background: var(--glass-highlight); border-color: var(--cyan-glow); }
+        .video-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
+        .video-card {
+            background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px;
+            overflow: hidden; backdrop-filter: blur(10px); transition: all 0.3s ease; position: relative;
+        }
+        .video-card:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 20px 50px rgba(0, 229, 255, 0.2), 0 0 0 1px rgba(0, 229, 255, 0.3); }
+        .video-preview { position: relative; aspect-ratio: 9/16; background: linear-gradient(135deg, var(--indigo-mid), var(--indigo-deep)); overflow: hidden; }
+        .video-preview img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .video-card:hover .video-preview img { transform: scale(1.05); }
+        .video-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(11, 31, 59, 0.3), rgba(11, 31, 59, 0.8)); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
+        .video-card:hover .video-overlay { opacity: 1; }
+        .play-btn { width: 60px; height: 60px; border-radius: 50%; background: rgba(0, 229, 255, 0.9); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 0 30px rgba(0, 229, 255, 0.5); }
+        .play-btn:hover { transform: scale(1.1); background: var(--cyan-glow); }
+        .play-btn svg { width: 24px; height: 24px; fill: var(--indigo-deep); margin-left: 4px; }
+        .video-duration { position: absolute; bottom: 12px; right: 12px; background: rgba(11, 31, 59, 0.9); padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; border: 1px solid var(--glass-border); }
+        .video-info { padding: 1.25rem; }
+        .video-title { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .video-caption { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 1rem; }
+        .video-actions { display: flex; gap: 0.5rem; }
+        .video-actions .btn { flex: 1; justify-content: center; font-size: 0.8rem; padding: 0.625rem; }
+        .video-status { position: absolute; top: 12px; left: 12px; padding: 0.375rem 0.75rem; border-radius: 20px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .status-ready { background: rgba(0, 229, 160, 0.2); color: var(--success); border: 1px solid rgba(0, 229, 160, 0.3); }
+        .status-pending { background: rgba(255, 184, 0, 0.2); color: var(--warning); border: 1px solid rgba(255, 184, 0, 0.3); }
+        .calendar-section { margin-bottom: 3rem; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.75rem; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px; padding: 1.5rem; backdrop-filter: blur(10px); }
+        .calendar-day { aspect-ratio: 1; background: rgba(11, 31, 59, 0.5); border: 1px solid var(--glass-border); border-radius: 12px; padding: 0.75rem; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: all 0.3s ease; position: relative; cursor: pointer; }
+        .calendar-day:hover { background: var(--glass-highlight); border-color: var(--cyan-glow); transform: scale(1.05); }
+        .calendar-day.active { background: linear-gradient(135deg, rgba(0, 229, 255, 0.2), rgba(0, 229, 255, 0.05)); border-color: var(--cyan-glow); box-shadow: 0 0 20px rgba(0, 229, 255, 0.2); }
+        .day-label { font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.25rem; }
+        .day-number { font-size: 1.5rem; font-weight: 700; color: var(--text-primary); }
+        .day-count { position: absolute; bottom: 6px; font-size: 0.65rem; color: var(--cyan-glow); background: rgba(0, 229, 255, 0.1); padding: 0.125rem 0.375rem; border-radius: 10px; }
+        .calendar-legend { display: flex; gap: 1.5rem; margin-top: 1rem; justify-content: center; flex-wrap: wrap; }
+        .legend-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: var(--text-secondary); }
+        .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(5, 16, 32, 0.9); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s ease; padding: 2rem; }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 24px; max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; transform: scale(0.9) translateY(20px); transition: all 0.3s ease; box-shadow: 0 25px 100px rgba(0, 229, 255, 0.3); }
+        .modal-overlay.active .modal { transform: scale(1) translateY(0); }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--glass-border); }
+        .modal-title { font-size: 1.25rem; font-weight: 600; }
+        .modal-close { width: 36px; height: 36px; border-radius: 50%; background: rgba(255, 56, 96, 0.1); border: 1px solid rgba(255, 56, 96, 0.3); color: var(--danger); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
+        .modal-close:hover { background: rgba(255, 56, 96, 0.2); transform: rotate(90deg); }
+        .modal-body { padding: 1.5rem; }
+        .modal-video { aspect-ratio: 9/16; background: var(--indigo-deep); border-radius: 12px; overflow: hidden; margin-bottom: 1.5rem; }
+        .modal-video img { width: 100%; height: 100%; object-fit: cover; }
+        .modal-caption { background: rgba(11, 31, 59, 0.5); border: 1px solid var(--glass-border); border-radius: 12px; padding: 1rem; font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary); margin-bottom: 1.5rem; }
+        .modal-actions { display: flex; gap: 0.75rem; }
+        .modal-actions .btn { flex: 1; justify-content: center; }
+        .toast-container { position: fixed; bottom: 2rem; right: 2rem; z-index: 1100; display: flex; flex-direction: column; gap: 0.75rem; }
+        .toast { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 1rem 1.5rem; backdrop-filter: blur(10px); display: flex; align-items: center; gap: 0.75rem; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); animation: slideIn 0.3s ease; max-width: 350px; }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .toast.success { border-color: var(--success); }
+        .toast.error { border-color: var(--danger); }
+        .toast-icon { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; }
+        .toast.success .toast-icon { background: rgba(0, 229, 160, 0.2); color: var(--success); }
+        .toast.error .toast-icon { background: rgba(255, 56, 96, 0.2); color: var(--danger); }
+        .loading-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(5, 16, 32, 0.95); backdrop-filter: blur(10px); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1200; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+        .loading-overlay.active { opacity: 1; visibility: visible; }
+        .loading-sphere { width: 80px; height: 80px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, rgba(0, 229, 255, 0.5), rgba(11, 31, 59, 0.9)); border: 3px solid var(--cyan-glow); box-shadow: 0 0 40px rgba(0, 229, 255, 0.6); animation: loadingPulse 1.5s ease-in-out infinite; }
+        @keyframes loadingPulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.8; } }
+        .loading-text { margin-top: 1.5rem; font-size: 1rem; color: var(--cyan-glow); text-transform: uppercase; letter-spacing: 2px; animation: textPulse 1.5s ease-in-out infinite; }
+        @keyframes textPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        @media (max-width: 768px) {
+            .header { padding: 1rem; }
+            .header-content { flex-direction: column; text-align: center; }
+            .container { padding: 1rem; }
+            .video-gallery { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+            .calendar-grid { grid-template-columns: repeat(4, 1fr); gap: 0.5rem; padding: 1rem; }
+            .action-bar { flex-direction: column; align-items: stretch; }
+            .modal { max-width: 100%; margin: 1rem; }
+            .toast-container { left: 1rem; right: 1rem; }
+            .toast { max-width: 100%; }
+        }
+        @media (max-width: 480px) {
+            .stats-bar { grid-template-columns: 1fr; }
+            .calendar-grid { grid-template-columns: repeat(2, 1fr); }
+            .stat-value { font-size: 2rem; }
+        }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--indigo-deep); }
+        ::-webkit-scrollbar-thumb { background: var(--indigo-light); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--cyan-dim); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo-sphere"></div>
+                <div class="brand-text">
+                    <h1>TDS Content Factory</h1>
+                    <p>Control Core v2.0</p>
+                </div>
+            </div>
+            <div class="status-indicator">
+                <div class="status-dot"></div>
+                <span>System Online</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="stats-bar">
+            <div class="stat-card">
+                <div class="stat-label">Videos Ready</div>
+                <div class="stat-value" id="videosReady">24</div>
+                <div class="stat-icon">📹</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Today's Count</div>
+                <div class="stat-value" id="todayCount">7</div>
+                <div class="stat-icon">📊</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Posting Streak</div>
+                <div class="stat-value" id="postingStreak">12<span style="font-size: 1rem; color: var(--text-secondary);"> days</span></div>
+                <div class="stat-icon">🔥</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Queue Status</div>
+                <div class="stat-value text-success" id="queueStatus">Active</div>
+                <div class="stat-icon">⚡</div>
+            </div>
+        </div>
+
+        <div class="action-bar">
+            <h2 class="section-title">Generated Content</h2>
+            <button class="btn btn-primary" onclick="generateNewBatch()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                Generate New Batch
+            </button>
+        </div>
+
+        <div class="video-gallery" id="videoGallery"></div>
+
+        <div class="calendar-section">
+            <div class="action-bar">
+                <h2 class="section-title">Content Calendar</h2>
+                <button class="btn btn-secondary" onclick="refreshCalendar()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+                    Refresh
+                </button>
+            </div>
+            <div class="calendar-grid" id="calendarGrid"></div>
+            <div class="calendar-legend">
+                <div class="legend-item"><div class="legend-dot" style="background: var(--success);"></div><span>Posted</span></div>
+                <div class="legend-item"><div class="legend-dot" style="background: var(--cyan-glow);"></div><span>Scheduled</span></div>
+                <div class="legend-item"><div class="legend-dot" style="background: var(--warning);"></div><span>Draft</span></div>
+                <div class="legend-item"><div class="legend-dot" style="background: var(--indigo-light);"></div><span>Empty</span></div>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal-overlay" id="videoModal" onclick="closeModal(event)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">Video Preview</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-video"><img id="modalVideoImg" src="" alt="Video preview"></div>
+                <div class="modal-caption" id="modalCaption"></div>
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" onclick="copyCaption()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                        Copy Caption
+                    </button>
+                    <button class="btn btn-primary" onclick="downloadVideo()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        Download
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-sphere"></div>
+        <div class="loading-text">Generating Content...</div>
+    </div>
+
+    <script>
+        const sampleVideos = [
+            { id: 1, title: "Morning Routine Hacks", caption: "5 morning routine hacks that changed my life forever! ✨ Which one will you try? #morningroutine #productivity #lifehacks", duration: "0:45", status: "ready", thumbnail: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=700&fit=crop" },
+            { id: 2, title: "Desk Setup Tour 2026", caption: "My futuristic desk setup! 🖥️ Powered by automation and good vibes. Full specs in comments! #desksetup #wfh #tech", duration: "1:20", status: "ready", thumbnail: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=400&h=700&fit=crop" },
+            { id: 3, title: "AI Tools You Need", caption: "These AI tools will 10x your productivity 🤖 Save this for later! #ai #productivity #tech", duration: "0:58", status: "ready", thumbnail: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=700&fit=crop" },
+            { id: 4, title: "Coding Late Nights", caption: "POV: You're debugging at 3am and the solution hits you ☕💡 #coding #programming #developer", duration: "0:32", status: "ready", thumbnail: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=700&fit=crop" },
+            { id: 5, title: "Minimalist Living", caption: "How I decluttered my digital life 🧘 Less is more. #minimalism #digitaldeclutter #mindfulness", duration: "1:05", status: "pending", thumbnail: "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?w=400&h=700&fit=crop" },
+            { id: 6, title: "Cyberpunk Aesthetic", caption: "Neon lights and city nights 🌃 Living in the future. #cyberpunk #neon #nightphotography", duration: "0:41", status: "ready", thumbnail: "https://images.unsplash.com/photo-1555680202-c86f0e12f086?w=400&h=700&fit=crop" }
+        ];
+
+        let currentModalVideo = null;
+
+        function renderVideos() {
+            const gallery = document.getElementById('videoGallery');
+            gallery.innerHTML = sampleVideos.map(video => `
+                <div class="video-card">
+                    <div class="video-preview">
+                        <img src="${video.thumbnail}" alt="${video.title}">
+                        <div class="video-overlay" onclick="openModal(${video.id})">
+                            <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+                        </div>
+                        <span class="video-duration">${video.duration}</span>
+                        <span class="video-status status-${video.status}">${video.status}</span>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">${video.title}</h3>
+                        <p class="video-caption">${video.caption}</p>
+                        <div class="video-actions">
+                            <button class="btn btn-secondary" onclick="copyText('${video.caption.replace(/'/g, "\\'")}')">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                                Copy
+                            </button>
+                            <button class="btn btn-primary" onclick="downloadItem(${video.id})">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                Download
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderCalendar() {
+            const calendar = document.getElementById('calendarGrid');
+            const days = ['Mon', 'Tue', 'Wed', 'Thu', 'F
+            const calendarData = [
+                { day: 12, count: 3, active: false }, { day: 13, count: 5, active: false },
+                { day: 14, count: 2, active: false }, { day: 15, count: 7, active: false },
+                { day: 16, count: 4, active: false }, { day: 17, count: 6, active: true },
+                { day: 18, count: 0, active: false }
+            ];
+            calendar.innerHTML = days.map((label, index) => {
+                const data = calendarData[index];
+                return `
+                    <div class="calendar-day ${data.active ? 'active' : ''}">
+                        <span class="day-label">${label}</span>
+                        <span class="day-number">${data.day}</span>
+                        ${data.count > 0 ? `<span class="day-count">${data.count}</span>` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function openModal(videoId) {
+            const video = sampleVideos.find(v => v.id === videoId);
+            if (!video) return;
+            currentModalVideo = video;
+            document.getElementById('modalTitle').textContent = video.title;
+            document.getElementById('modalVideoImg').src = video.thumbnail;
+            document.getElementById('modalCaption').textContent = video.caption;
+            document.getElementById('videoModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(event) {
+            if (event && event.target !== event.currentTarget) return;
+            document.getElementById('videoModal').classList.remove('active');
+            document.body.style.overflow = '';
+            currentModalVideo = null;
+        }
+
+        function copyCaption() {
+            if (currentModalVideo) {
+                copyText(currentModalVideo.caption);
+            }
+        }
+
+        function copyText(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('Caption copied to clipboard!', 'success');
+            }).catch(() => {
+                showToast('Failed to copy caption', 'error');
+            });
+        }
+
+        function downloadVideo() {
+            if (currentModalVideo) {
+                downloadItem(currentModalVideo.id);
+            }
+        }
+
+        function downloadItem(videoId) {
+            const video = sampleVideos.find(v => v.id === videoId);
+            showToast(`Downloading "${video.title}"...`, 'success');
+            setTimeout(() => {
+                showToast('Download complete!', 'success');
+            }, 1500);
+        }
+
+        function generateNewBatch() {
+            document.getElementById('loadingOverlay').classList.add('active');
+            setTimeout(() => {
+                document.getElementById('loadingOverlay').classList.remove('active');
+                showToast('New batch generated successfully!', 'success');
+                const videosReady = document.getElementById('videosReady');
+                videosReady.textContent = parseInt(videosReady.textContent) + 3;
+            }, 2000);
+        }
+
+        function refreshCalendar() {
+            showToast('Calendar refreshed!', 'success');
+        }
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <div class="toast-icon">${type === 'success' ? '✓' : '✕'}</div>
+                <span>${message}</span>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.animation = 'slideIn 0.3s ease reverse';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        renderVideos();
+        renderCalendar();
+    </script>
+</body>
+</html>

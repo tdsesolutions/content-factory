@@ -1,0 +1,24 @@
+{
+  "lastUsed": {
+    "ai1": 1771444591730,
+    "cs1": 1771444591731,
+    "kx1": 1771444591732
+  },
+  "usageHistory": [
+    {
+      "template_id": "ai1",
+      "category": "ai_automation_tips",
+      "timestamp": 1771444591730
+    },
+    {
+      "template_id": "cs1",
+      "category": "custom_software_solutions",
+      "timestamp": 1771444591731
+    },
+    {
+      "template_id": "kx1",
+      "category": "meet_kiarosx",
+      "timestamp": 1771444591732
+    }
+  ]
+}

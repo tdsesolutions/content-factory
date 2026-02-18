@@ -1,0 +1,23 @@
+{
+  "name": "tds-content-factory",
+  "version": "1.0.0",
+  "description": "AI-powered TikTok content generation with KiarosX avatar",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "node server/server.js",
+    "schedule": "node server/scheduler.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "node-cron": "^3.0.3",
+    "uuid": "^9.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": ["tiktok", "content", "ai", "avatar", "video"],
+  "author": "TDS E Solutions",
+  "license": "MIT"
+}

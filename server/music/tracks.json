@@ -1,0 +1,237 @@
+{
+  "version": "1.0.0",
+  "description": "Royalty-free background music tracks for video content",
+  "lastUpdated": "2026-02-18",
+  "tracks": [
+    {
+      "id": "upbeat-tech",
+      "name": "Upbeat Tech",
+      "description": "Energetic and modern electronic track with driving beat",
+      "category": ["tech", "energetic", "modern", "upbeat"],
+      "mood": "energetic",
+      "tempo": "fast",
+      "duration": 20,
+      "file": {
+        "url": "/music/tracks/upbeat-tech.mp3",
+        "format": "mp3",
+        "size": "PLACEHOLDER"
+      },
+      "loop": {
+        "enabled": true,
+        "seamless": true,
+        "crossfade": 0.5
+      },
+      "volume": {
+        "default": 0.2,
+        "min": 0.1,
+        "max": 0.4
+      },
+      "bestFor": [
+        "product launches",
+        "app demos",
+        "tech reviews",
+        "startup pitches",
+        "fast-paced content"
+      ],
+      "tags": ["electronic", "synth", "driving", "corporate", "motivational"],
+      "attribution": {
+        "artist": "TDS Content Factory",
+        "license": "royalty-free",
+        "source": "original"
+      }
+    },
+    {
+      "id": "corporate-focus",
+      "name": "Corporate Focus",
+      "description": "Professional and steady track for business content",
+      "category": ["corporate", "professional", "business", "steady"],
+      "mood": "focused",
+      "tempo": "medium",
+      "duration": 25,
+      "file": {
+        "url": "/music/tracks/corporate-focus.mp3",
+        "format": "mp3",
+        "size": "PLACEHOLDER"
+      },
+      "loop": {
+        "enabled": true,
+        "seamless": true,
+        "crossfade": 0.3
+      },
+      "volume": {
+        "default": 0.2,
+        "min": 0.1,
+        "max": 0.35
+      },
+      "bestFor": [
+        "business presentations",
+        "annual reports",
+        "training videos",
+        "corporate announcements",
+        "professional content"
+      ],
+      "tags": ["piano", "strings", "minimal", "clean", "confident"],
+      "attribution": {
+        "artist": "TDS Content Factory",
+        "license": "royalty-free",
+        "source": "original"
+      }
+    },
+    {
+      "id": "lofi-chill",
+      "name": "Lo-Fi Chill",
+      "description": "Relaxed and trendy lo-fi hip hop beat",
+      "category": ["lofi", "chill", "relaxed", "trendy"],
+      "mood": "calm",
+      "tempo": "slow",
+      "duration": 22,
+      "file": {
+        "url": "/music/tracks/lofi-chill.mp3",
+        "format": "mp3",
+        "size": "PLACEHOLDER"
+      },
+      "loop": {
+        "enabled": true,
+        "seamless": true,
+        "crossfade": 1.0
+      },
+      "volume": {
+        "default": 0.25,
+        "min": 0.15,
+        "max": 0.4
+      },
+      "bestFor": [
+        "study videos",
+        "vlogs",
+        "behind-the-scenes",
+        "casual content",
+        "lifestyle videos"
+      ],
+      "tags": ["lofi", "hiphop", "jazz", "chords", "vinyl", "crackles"],
+      "attribution": {
+        "artist": "TDS Content Factory",
+        "license": "royalty-free",
+        "source": "original"
+      }
+    },
+    {
+      "id": "cinematic-build",
+      "name": "Cinematic Build",
+      "description": "Dramatic and inspiring orchestral-electronic hybrid",
+      "category": ["cinematic", "dramatic", "inspiring", "epic"],
+      "mood": "inspiring",
+      "tempo": "building",
+      "duration": 30,
+      "file": {
+        "url": "/music/tracks/cinematic-build.mp3",
+        "format": "mp3",
+        "size": "PLACEHOLDER"
+      },
+      "loop": {
+        "enabled": true,
+        "seamless": false,
+        "crossfade": 0.0
+      },
+      "volume": {
+        "default": 0.18,
+        "min": 0.1,
+        "max": 0.35
+      },
+      "bestFor": [
+        "storytelling",
+        "achievement reveals",
+        "emotional content",
+        "trailers",
+        "hero journeys"
+      ],
+      "tags": ["orchestral", "strings", "epic", "uplifting", "emotional", "pads"],
+      "attribution": {
+        "artist": "TDS Content Factory",
+        "license": "royalty-free",
+        "source": "original"
+      }
+    },
+    {
+      "id": "minimal-tech",
+      "name": "Minimal Tech",
+      "description": "Subtle and ambient background texture",
+      "category": ["minimal", "ambient", "subtle", "understated"],
+      "mood": "neutral",
+      "tempo": "very-slow",
+      "duration": 18,
+      "file": {
+        "url": "/music/tracks/minimal-tech.mp3",
+        "format": "mp3",
+        "size": "PLACEHOLDER"
+      },
+      "loop": {
+        "enabled": true,
+        "seamless": true,
+        "crossfade": 2.0
+      },
+      "volume": {
+        "default": 0.22,
+        "min": 0.15,
+        "max": 0.45
+      },
+      "bestFor": [
+        "tutorials",
+        "explainers",
+        "background ambience",
+        "voice-heavy content",
+        "minimal visuals"
+      ],
+      "tags": ["ambient", "drones", "textural", "subtle", "atmospheric"],
+      "attribution": {
+        "artist": "TDS Content Factory",
+        "license": "royalty-free",
+        "source": "original"
+      }
+    }
+  ],
+  "categories": {
+    "byMood": {
+      "energetic": ["upbeat-tech"],
+      "focused": ["corporate-focus"],
+      "calm": ["lofi-chill"],
+      "inspiring": ["cinematic-build"],
+      "neutral": ["minimal-tech"]
+    },
+    "byContentType": {
+      "product-demo": ["upbeat-tech", "corporate-focus"],
+      "tutorial": ["minimal-tech", "lofi-chill"],
+      "storytelling": ["cinematic-build", "lofi-chill"],
+      "presentation": ["corporate-focus", "minimal-tech"],
+      "vlog": ["lofi-chill", "upbeat-tech"],
+      "announcement": ["corporate-focus", "cinematic-build"]
+    },
+    "byTempo": {
+      "fast": ["upbeat-tech"],
+      "medium": ["corporate-focus"],
+      "slow": ["lofi-chill"],
+      "building": ["cinematic-build"],
+      "very-slow": ["minimal-tech"]
+    }
+  },
+  "mixingDefaults": {
+    "musicVolumeDuringSpeech": 0.18,
+    "musicVolumeDuringPause": 0.7,
+    "ttsVolume": 1.0,
+    "duckingAttack": 0.05,
+    "duckingRelease": 0.3,
+    "crossfadeDuration": 0.5,
+    "normalizeOutput": true
+  },
+  "formats": {
+    "mp3": {
+      "bitrate": "192kbps",
+      "sampleRate": 44100,
+      "channels": 2
+    },
+    "ogg": {
+      "quality": 6,
+      "sampleRate": 44100,
+      "channels": 2
+    }
+  }
+}

@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KiarosX Avatar Engine Demo</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+      min-height: 100vh;
+      color: #fff;
+      overflow-x: hidden;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    header h1 {
+      font-size: 3rem;
+      background: linear-gradient(90deg, #00E5FF, #0088AA, #00E5FF);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 3s linear infinite;
+      margin-bottom: 10px;
+    }
+    
+    @keyframes shimmer {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+    
+    header p {
+      color: #88aaff;
+      font-size: 1.1rem;
+    }
+    
+    .demo-section {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 20px;
+      border: 1px solid rgba(0, 229, 255, 0.2);
+      padding: 30px;
+      margin-bottom: 30px;
+    }
+    
+    .demo-section h2 {
+      color: #00E5FF;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .demo-section h2::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #00E5FF;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #00E5FF;
+    }
+    
+    /* Main Canvas Demo Area */
+    .main-demo {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      background: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,20,40,0.4) 100%);
+      border-radius: 15px;
+      overflow: hidden;
+      border: 1px solid rgba(0, 229, 255, 0.15);
+    }
+    
+    #mainCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    /* Video placeholder to show context */
+    .video-placeholder {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    
+    .video-placeholder::before {
+      content: '🎬 VIDEO CONTENT AREA';
+      font-size: 2rem;
+      color: rgba(255, 255, 255, 0.1);
+      letter-spacing: 5px;
+    }
+    
+    /* Control Panel */
+    .controls {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    
+    .btn {
+      padding: 12px 30px;
+      border: none;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s;
+    }
+    
+    .btn:hover::before {
+      left: 100%;
+    }
+    
+    .btn-idle {
+      background: linear-gradient(135deg, #2a2a4a 0%, #1a1a3a 100%);
+      color: #88aaff;
+      border: 2px solid #3a3a6a;
+    }
+    
+    .btn-idle:hover, .btn-idle.active {
+      background: linear-gradient(135deg, #3a3a6a 0%, #2a2a5a 100%);
+      border-color: #00E5FF;
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
+      color: #fff;
+    }
+    
+    .btn-talking {
+      background: linear-gradient(135deg, #004466 0%, #002233 100%);
+      color: #00E5FF;
+      border: 2px solid #006688;
+    }
+    
+    .btn-talking:hover, .btn-talking.active {
+      background: linear-gradient(135deg, #006688 0%, #004466 100%);
+      border-color: #00E5FF;
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+      color: #fff;
+    }
+    
+    .btn-executing {
+      background: linear-gradient(135deg, #660044 0%, #330022 100%);
+      color: #ff66aa;
+      border: 2px solid #990066;
+    }
+    
+    .btn-executing:hover, .btn-executing.active {
+      background: linear-gradient(135deg, #990066 0%, #660044 100%);
+      border-color: #ff00aa;
+      box-shadow: 0 0 20px rgba(255, 0, 170, 0.5);
+      color: #fff;
+    }
+    
+    /* State Info Panel */
+    .state-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    
+    .state-card {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 15px;
+      padding: 20px;
+      border: 1px solid rgba(0, 229, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .state-card:hover {
+      border-color: rgba(0, 229, 255, 0.3);
+      transform: translateY(-5px);
+    }
+    
+    .state-card h3 {
+      color: #00E5FF;
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+    
+    .state-card ul {
+      list-style: none;
+      color: #aaccff;
+    }
+    
+    .state-card li {
+      padding: 5px 0;
+      padding-left: 20px;
+      position: relative;
+    }
+    
+    .state-card li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: #00E5FF;
+    }
+    
+    /* Individual State Demos */
+    .state-demos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    
+    .mini-demo {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 15px;
+      border: 1px solid rgba(0, 229, 255, 0.1);
+    }
+    
+    .mini-demo h4 {
+      color: #00E5FF;
+      margin-bottom: 10px;
+    }
+    
+    .mini-canvas {
+      width: 120px;
+      height: 120px;
+      border-radius: 10px;
+      background: radial-gradient(circle at center, rgba(0,30,60,0.5) 0%, rgba(0,0,0,0.8) 100%);
+    }
+    
+    .specs {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 30px;
+      border: 1px solid rgba(0, 229, 255, 0.1);
+    }
+    
+    .specs h3 {
+      color: #00E5FF;
+      margin-bottom: 15px;
+    }
+    
+    .specs code {
+      display: block;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 15px;
+      border-radius: 8px;
+      color: #88ffaa;
+      font-family: 'Courier New', monospace;
+      overflow-x: auto;
+      line-height: 1.6;
+    }
+    
+    .specs code .comment {
+      color: #6688aa;
+    }
+    
+    .specs code .keyword {
+      color: #ff88aa;
+    }
+    
+    .specs code .string {
+      color: #aaff88;
+    }
+    
+    .specs code .function {
+      color: #88ccff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>KiarosX Avatar Engine</h1>
+      <p>Interactive Glass Sphere Animation System</p>
+    </header>
+    
+    <!-- Main Demo Area -->
+    <div class="demo-section">
+      <h2>Live Demo</h2>
+      <div class="main-demo">
+        <div class="video-placeholder"></div>
+        <canvas id="mainCanvas"></canvas>
+      </div>
+      
+      <div class="controls">
+        <button class="btn btn-idle active" onclick="setAvatarState('idle', this)">
+          Idle State
+        </button>
+        <button class="btn btn-talking" onclick="setAvatarState('talking', this)">
+          Talking State
+        </button>
+        <button class="btn btn-executing" onclick="setAvatarState('executing', this)">
+          Executing State
+        </button>
+      </div>
+    </div>
+    
+    <!-- Individual State Demos -->
+    <div class="demo-section">
+      <h2>All States Side-by-Side</h2>
+      <div class="state-demos">
+        <div class="mini-demo">
+          <h4>Idle</h4>
+          <canvas id="idleCanvas" class="mini-canvas" width="120" height="120"></canvas>
+          <p style="color: #88aaff; font-size: 0.9rem; margin-top: 10px;">Slow & Calm</p>
+        </div>
+        <div class="mini-demo">
+          <h4>Talking</h4>
+          <canvas id="talkingCanvas" class="mini-canvas" width="120" height="120"></canvas>
+          <p style="color: #00E5FF; font-size: 0.9rem; margin-top: 10px;">Active & Engaged</p>
+        </div>
+        <div class="mini-demo">
+          <h4>Executing</h4>
+          <canvas id="executingCanvas" class="mini-canvas" width="120" height="120"></canvas>
+          <p style="color: #ff66aa; font-size: 0.9rem; margin-top: 10px;">Fast & Intense</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- State Information -->
+    <div class="demo-section">
+      <h2>Animation States</h2>
+      <div class="state-info">
+        <div class="state-card">
+          <h3>🌙 Idle State</h3>
+          <ul>
+            <li>Slow rotation (0.005 rad/frame)</li>
+            <li>4200ms pulse cycle</li>
+            <li>12 orbiting particles</li>
+            <li>Low glow intensity (40%)</li>
+            <li>Dim lattice (60% brightness)</li>
+          </ul>
+        </div>
+        <div class="state-card">
+          <h3>🗣️ Talking State</h3>
+          <ul>
+            <li>Medium rotation (0.015 rad/frame)</li>
+            <li>1800ms pulse cycle</li>
+            <li>20 orbiting particles</li>
+            <li>High glow intensity (80%)</li>
+            <li>Bright lattice (100%)</li>
+            <li>Sound wave ripples</li>
+          </ul>
+        </div>
+        <div class="state-card">
+          <h3>⚡ Executing State</h3>
+          <ul>
+            <li>Fast rotation (0.035 rad/frame)</li>
+            <li>900ms pulse cycle</li>
+            <li>35 orbiting particles</li>
+            <li>Maximum glow (100%)</li>
+            <li>Bright lattice (100%)</li>
+            <li>Energy spikes</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Visual Features -->
+    <div class="demo-section">
+      <h2>Visual Features</h2>
+      <div class="state-info">
+        <div class="state-card">
+          <h3>🔮 Glass Sphere</h3>
+          <ul>
+            <li>Transparent refraction effect</li>
+            <li>Multi-layer radial gradients</li>
+            <li>Dynamic rim lighting</li>
+            <li>Glass highlight reflection</li>
+          </ul>
+        </div>
+        <div class="state-card">
+          <h3>✨ Energy Effects</h3>
+          <ul>
+            <li>Pulsing outer glow</li>
+            <li>Orbiting micro-particles</li>
+            <li>Rotating lattice gridlines</li>
+            <li>Sound wave ripples (talking)</li>
+            <li>Energy spikes (executing)</li>
+          </ul>
+        </div>
+        <div class="state-card">
+          <h3>🔤 K Symbol</h3>
+          <ul>
+            <li>Geometric cyan (#00E5FF) design</li>
+            <li>Glow effect with shadow blur</li>
+            <li>Gentle pulse animation</li>
+            <li>Slow independent rotation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Usage Example -->
+    <div class="specs">
+      <h3>📚 Usage Example</h3>
+      <code>
+<span class="comment">// Initialize the avatar</span>
+<span class="keyword">const</span> canvas = document.getElementById(<span class="string">'avatarCanvas'</span>);
+<span class="keyword">const</span> avatar = <span class="keyword">new</span> <span class="function">KiarosXAvatar</span>(canvas);
+
+<span class="comment">// Change states</span>
+avatar.<span class="function">setState</span>(<span class="string">'idle'</span>);      <span class="comment">// Calm, waiting</span>
+avatar.<span class="function">setState</span>(<span class="string">'talking'</span>);  <span class="comment">// Speaking, active</span>
+avatar.<span class="function">setState</span>(<span class="string">'executing'</span>); <span class="comment">// Processing, intense</span>
+
+<span class="comment">// Get current state</span>
+<span class="keyword">const</span> currentState = avatar.<span class="function">getState</span>();
+
+<span class="comment">// Cleanup when done</span>
+avatar.<span class="function">destroy</span>();
+      </code>
+    </div>
+  </div>
+  
+  <script src="avatar-engine.js"></script>
+  <script>
+    // Main avatar instance
+    const mainCanvas = document.getElementById('mainCanvas');
+    mainCanvas.width = mainCanvas.offsetWidth;
+    mainCanvas.height = mainCanvas.offsetHeight;
+    
+    const mainAvatar = new KiarosXAvatar(mainCanvas);
+    
+    // Mini avatars for side-by-side demo
+    const idleCanvas = document.getElementById('idleCanvas');
+    const talkingCanvas = document.getElementById('talkingCanvas');
+    const executingCanvas = document.getElementById('executingCanvas');
+    
+    const idleAvatar = new KiarosXAvatar(idleCanvas);
+    const talkingAvatar = new KiarosXAvatar(talkingCanvas);
+    const executingAvatar = new KiarosXAvatar(executingCanvas);
+    
+    // Set initial states
+    idleAvatar.setState('idle');
+    talkingAvatar.setState('talking');
+    executingAvatar.setState('executing');
+    
+    // State switching function
+    function setAvatarState(state, btn) {
+      mainAvatar.setState(state);
+      
+      // Update button states
+      document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+    
+    // Auto-cycle demo (optional - uncomment to enable)
+    /*
+    const states = ['idle', 'talking', 'executing'];
+    let currentIndex = 0;
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % states.length;
+      const state = states[currentIndex];
+      const btn = document.querySelector(`.btn-${state}`);
+      setAvatarState(state, btn);
+    }, 5000);
+    */
+    
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      mainCanvas.width = mainCanvas.offsetWidth;
+      mainCanvas.height = mainCanvas.offsetHeight;
+      mainAvatar.resize();
+    });
+  </script>
+</body>
+</html>
