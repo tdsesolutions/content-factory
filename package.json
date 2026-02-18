@@ -9,15 +9,26 @@
     "schedule": "node server/scheduler.js"
   },
   "dependencies": {
-    "express": "^4.18.2",
+    "@ffmpeg/ffmpeg": "^0.12.15",
+    "@ffmpeg/util": "^0.12.2",
+    "canvas": "^3.2.1",
     "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "fluent-ffmpeg": "^2.1.3",
     "node-cron": "^3.0.3",
+    "playwright": "^1.58.2",
     "uuid": "^9.0.0"
   },
   "engines": {
     "node": ">=18.0.0"
   },
-  "keywords": ["tiktok", "content", "ai", "avatar", "video"],
+  "keywords": [
+    "tiktok",
+    "content",
+    "ai",
+    "avatar",
+    "video"
+  ],
   "author": "TDS E Solutions",
   "license": "MIT"
 }

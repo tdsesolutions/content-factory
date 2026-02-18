@@ -1,0 +1,65 @@
+{
+  "version": "1.0.0",
+  "createdAt": "2026-02-18T20:21:46.967Z",
+  "videos": [
+    {
+      "id": "sample-001",
+      "title": "Meet KiarosX",
+      "filename": "sample-001.mp4",
+      "filepath": "/home/teddiescott30/.openclaw/workspace/tds-content-factory-v2/data/videos/sample-001.mp4",
+      "topic": "meet-kiarosx",
+      "status": "ready",
+      "createdAt": "2026-02-18T20:26:47.828Z",
+      "date": "2026-02-18",
+      "downloaded": false,
+      "fileSize": 312593,
+      "duration": 10,
+      "width": 1080,
+      "height": 1920,
+      "fps": 30
+    },
+    {
+      "id": "sample-002",
+      "title": "AI Automation Tips",
+      "filename": "sample-002.mp4",
+      "filepath": "/home/teddiescott30/.openclaw/workspace/tds-content-factory-v2/data/videos/sample-002.mp4",
+      "topic": "ai-automation-tips",
+      "status": "ready",
+      "createdAt": "2026-02-18T20:27:13.395Z",
+      "date": "2026-02-18",
+      "downloaded": false,
+      "fileSize": 540093,
+      "duration": 10,
+      "width": 1080,
+      "height": 1920,
+      "fps": 30
+    },
+    {
+      "id": "sample-003",
+      "title": "Custom Software",
+      "filename": "sample-003.mp4",
+      "filepath": "/home/teddiescott30/.openclaw/workspace/tds-content-factory-v2/data/videos/sample-003.mp4",
+      "topic": "custom-software",
+      "status": "ready",
+      "createdAt": "2026-02-18T20:27:39.671Z",
+      "date": "2026-02-18",
+      "downloaded": false,
+      "fileSize": 872413,
+      "duration": 10,
+      "width": 1080,
+      "height": 1920,
+      "fps": 30
+    }
+  ],
+  "stats": {
+    "totalGenerated": 3,
+    "totalDownloaded": 0,
+    "generationHistory": [
+      {
+        "date": "2026-02-18T20:27:39.671Z",
+        "count": 3,
+        "type": "sample-generation"
+      }
+    ]
+  }
+}

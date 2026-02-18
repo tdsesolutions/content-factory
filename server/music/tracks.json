@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "description": "Royalty-free background music tracks for video content",
-  "lastUpdated": "2026-02-18",
+  "lastUpdated": "2026-02-18T20:17:00Z",
   "tracks": [
     {
       "id": "upbeat-tech",
@@ -14,7 +14,7 @@
       "file": {
         "url": "/music/tracks/upbeat-tech.mp3",
         "format": "mp3",
-        "size": "PLACEHOLDER"
+        "size": "321035"
       },
       "loop": {
         "enabled": true,
@@ -51,7 +51,7 @@
       "file": {
         "url": "/music/tracks/corporate-focus.mp3",
         "format": "mp3",
-        "size": "PLACEHOLDER"
+        "size": "401283"
       },
       "loop": {
         "enabled": true,
@@ -88,7 +88,7 @@
       "file": {
         "url": "/music/tracks/lofi-chill.mp3",
         "format": "mp3",
-        "size": "PLACEHOLDER"
+        "size": "353218"
       },
       "loop": {
         "enabled": true,
@@ -125,7 +125,7 @@
       "file": {
         "url": "/music/tracks/cinematic-build.mp3",
         "format": "mp3",
-        "size": "PLACEHOLDER"
+        "size": "481114"
       },
       "loop": {
         "enabled": true,
@@ -162,7 +162,7 @@
       "file": {
         "url": "/music/tracks/minimal-tech.mp3",
         "format": "mp3",
-        "size": "PLACEHOLDER"
+        "size": "289270"
       },
       "loop": {
         "enabled": true,
