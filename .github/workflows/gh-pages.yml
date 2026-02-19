@@ -11,9 +11,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
+      - name: Prepare deployment
+        run: |
+          # Create temp dir with only client contents at root
+          mkdir -p /tmp/deploy
+          cp -r client/* /tmp/deploy/
+          # Copy data folder for videos
+          cp -r data /tmp/deploy/ 2>/dev/null || true
+      
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./client
+          publish_dir: /tmp/deploy
           force_orphan: true
