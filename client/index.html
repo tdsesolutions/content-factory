@@ -295,24 +295,48 @@
     </div>
 
     <script>
-        const sampleVideos = [
-            { id: 1, title: "Morning Routine Hacks", caption: "5 morning routine hacks that changed my life forever! ✨ Which one will you try? #morningroutine #productivity #lifehacks", duration: "0:45", status: "ready", thumbnail: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=700&fit=crop" },
-            { id: 2, title: "Desk Setup Tour 2026", caption: "My futuristic desk setup! 🖥️ Powered by automation and good vibes. Full specs in comments! #desksetup #wfh #tech", duration: "1:20", status: "ready", thumbnail: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=400&h=700&fit=crop" },
-            { id: 3, title: "AI Tools You Need", caption: "These AI tools will 10x your productivity 🤖 Save this for later! #ai #productivity #tech", duration: "0:58", status: "ready", thumbnail: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=700&fit=crop" },
-            { id: 4, title: "Coding Late Nights", caption: "POV: You're debugging at 3am and the solution hits you ☕💡 #coding #programming #developer", duration: "0:32", status: "ready", thumbnail: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=700&fit=crop" },
-            { id: 5, title: "Minimalist Living", caption: "How I decluttered my digital life 🧘 Less is more. #minimalism #digitaldeclutter #mindfulness", duration: "1:05", status: "pending", thumbnail: "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?w=400&h=700&fit=crop" },
-            { id: 6, title: "Cyberpunk Aesthetic", caption: "Neon lights and city nights 🌃 Living in the future. #cyberpunk #neon #nightphotography", duration: "0:41", status: "ready", thumbnail: "https://images.unsplash.com/photo-1555680202-c86f0e12f086?w=400&h=700&fit=crop" }
-        ];
-
+        const API_BASE = window.location.origin.includes('github.io') 
+            ? 'https://content-factory-api.vercel.app/api'  
+            : '/api';
+        
+        let videos = [];
         let currentModalVideo = null;
+
+        async function loadVideos() {
+            try {
+                const response = await fetch(`${API_BASE}/videos`);
+                const data = await response.json();
+                if (data.success) {
+                    videos = data.videos.map(v => ({
+                        id: v.id,
+                        title: v.topic.charAt(0).toUpperCase() + v.topic.slice(1),
+                        caption: v.caption || 'Video content for ' + v.topic,
+                        duration: '0:30',
+                        status: v.status,
+                        thumbnail: 'data/videos/' + v.filename
+                    }));
+                    renderVideos();
+                    updateStats();
+                }
+            } catch (err) {
+                console.error('Failed to load videos:', err);
+                showToast('Failed to load videos', 'error');
+            }
+        }
 
         function renderVideos() {
             const gallery = document.getElementById('videoGallery');
-            gallery.innerHTML = sampleVideos.map(video => `
+            if (videos.length === 0) {
+                gallery.innerHTML = '<div class="empty-state">No videos yet. Click "Generate New Batch" to create content.</div>';
+                return;
+            }
+            gallery.innerHTML = videos.map(video => `
                 <div class="video-card">
                     <div class="video-preview">
-                        <img src="${video.thumbnail}" alt="${video.title}">
-                        <div class="video-overlay" onclick="openModal(${video.id})">
+                        <div class="video-placeholder" style="background: linear-gradient(135deg, var(--indigo-mid), var(--indigo-light)); display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="font-size: 3rem;">🎬</span>
+                        </div>
+                        <div class="video-overlay" onclick="openModal('${video.id}')">
                             <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
                         </div>
                         <span class="video-duration">${video.duration}</span>
@@ -326,7 +350,7 @@
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
                                 Copy
                             </button>
-                            <button class="btn btn-primary" onclick="downloadItem(${video.id})">
+                            <button class="btn btn-primary" onclick="downloadItem('${video.id}')">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                                 Download
                             </button>
@@ -336,33 +360,63 @@
             `).join('');
         }
 
-        function renderCalendar() {
+        async function loadCalendar() {
+            try {
+                const response = await fetch(`${API_BASE}/stats`);
+                const data = await response.json();
+                if (data.success) {
+                    renderCalendar(data.stats);
+                }
+            } catch (err) {
+                console.error('Failed to load calendar:', err);
+            }
+        }
+
+        function renderCalendar(stats) {
             const calendar = document.getElementById('calendarGrid');
-            const days = ['Mon', 'Tue', 'Wed', 'Thu', 'F
-            const calendarData = [
-                { day: 12, count: 3, active: false }, { day: 13, count: 5, active: false },
-                { day: 14, count: 2, active: false }, { day: 15, count: 7, active: false },
-                { day: 16, count: 4, active: false }, { day: 17, count: 6, active: true },
-                { day: 18, count: 0, active: false }
-            ];
+            const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            const today = new Date();
+            const startOfWeek = new Date(today);
+            startOfWeek.setDate(today.getDate() - today.getDay() + 1);
+            
             calendar.innerHTML = days.map((label, index) => {
-                const data = calendarData[index];
+                const date = new Date(startOfWeek);
+                date.setDate(startOfWeek.getDate() + index);
+                const dayNum = date.getDate();
+                const isToday = date.toDateString() === today.toDateString();
+                const count = isToday ? (stats?.todayCount || 0) : 0;
+                
                 return `
-                    <div class="calendar-day ${data.active ? 'active' : ''}">
+                    <div class="calendar-day ${isToday ? 'active' : ''}">
                         <span class="day-label">${label}</span>
-                        <span class="day-number">${data.day}</span>
-                        ${data.count > 0 ? `<span class="day-count">${data.count}</span>` : ''}
+                        <span class="day-number">${dayNum}</span>
+                        ${count > 0 ? `<span class="day-count">${count}</span>` : ''}
                     </div>
                 `;
             }).join('');
         }
 
-        function openModal(videoId) {
-            const video = sampleVideos.find(v => v.id === videoId);
+        async function updateStats() {
+            try {
+                const response = await fetch(`${API_BASE}/stats`);
+                const data = await response.json();
+                if (data.success) {
+                    document.getElementById('videosReady').textContent = data.stats.totalVideos || 0;
+                    document.getElementById('todayCount').textContent = data.stats.todayCount || 0;
+                    document.getElementById('postingStreak').textContent = data.stats.streak || 0;
+                }
+            } catch (err) {
+                console.error('Failed to load stats:', err);
+            }
+        }
+
+        async function openModal(videoId) {
+            const video = videos.find(v => v.id === videoId);
             if (!video) return;
             currentModalVideo = video;
             document.getElementById('modalTitle').textContent = video.title;
-            document.getElementById('modalVideoImg').src = video.thumbnail;
+            document.getElementById('modalVideoImg').src = '';
+            document.getElementById('modalVideoImg').style.display = 'none';
             document.getElementById('modalCaption').textContent = video.caption;
             document.getElementById('videoModal').classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -395,25 +449,60 @@
             }
         }
 
-        function downloadItem(videoId) {
-            const video = sampleVideos.find(v => v.id === videoId);
+        async function downloadItem(videoId) {
+            const video = videos.find(v => v.id === videoId);
+            if (!video) return;
+            
             showToast(`Downloading "${video.title}"...`, 'success');
-            setTimeout(() => {
+            
+            try {
+                const response = await fetch(`${API_BASE}/videos/${videoId}/download`);
+                if (!response.ok) throw new Error('Download failed');
+                
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `tds-video-${videoId}.mp4`;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                a.remove();
+                
                 showToast('Download complete!', 'success');
-            }, 1500);
+            } catch (err) {
+                showToast('Download failed: ' + err.message, 'error');
+            }
         }
 
-        function generateNewBatch() {
+        async function generateNewBatch() {
             document.getElementById('loadingOverlay').classList.add('active');
-            setTimeout(() => {
+            
+            try {
+                const response = await fetch(`${API_BASE}/generate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ count: 3, topics: ['ai_automation', 'custom_software', 'web_development'] })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showToast(`Generated ${data.videos.length} videos!`, 'success');
+                    await loadVideos();
+                    await loadCalendar();
+                } else {
+                    throw new Error(data.error || 'Generation failed');
+                }
+            } catch (err) {
+                showToast('Generation failed: ' + err.message, 'error');
+            } finally {
                 document.getElementById('loadingOverlay').classList.remove('active');
-                showToast('New batch generated successfully!', 'success');
-                const videosReady = document.getElementById('videosReady');
-                videosReady.textContent = parseInt(videosReady.textContent) + 3;
-            }, 2000);
+            }
         }
 
-        function refreshCalendar() {
+        async function refreshCalendar() {
+            await loadCalendar();
             showToast('Calendar refreshed!', 'success');
         }
 
@@ -438,8 +527,9 @@
             }
         });
 
-        renderVideos();
-        renderCalendar();
+        // Load data on page load
+        loadVideos();
+        loadCalendar();
     </script>
 </body>
 </html>
